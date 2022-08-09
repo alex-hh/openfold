@@ -701,6 +701,28 @@ class DataPipeline:
 
         return {**mmcif_feats, **template_features, **msa_features}
 
+    def process_mmcif_file(
+        self,
+        mmcif_path: str,
+        alignment_dir: str,
+        chain_id: Optional[str] = None,
+        alignment_index: Optional[str] = None,
+    ):
+        alignment_dir = alignment_dir or "."
+        with open(mmcif_path, 'r') as f:
+            mmcif_string = f.read()
+
+        mmcif_object = mmcif_parsing.parse(
+            file_id="na", mmcif_string=mmcif_string
+        ).mmcif_object
+        feats = self.process_mmcif(
+            mmcif_object,
+            alignment_dir=alignment_dir,
+            chain_id=chain_id,
+            alignment_index=alignment_index,
+        )
+        return feats
+
     def process_pdb(
         self,
         pdb_path: str,
