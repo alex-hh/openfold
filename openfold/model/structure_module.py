@@ -38,8 +38,9 @@ from openfold.utils.tensor_utils import (
     permute_final_dims,
     flatten_final_dims,
 )
-
-attn_core_inplace_cuda = importlib.import_module("attn_core_inplace_cuda")
+attn_core_is_installed = importlib.util.find_spec("attn_core_inplace_cuda") is not None
+if attn_core_is_installed:
+    attn_core_inplace_cuda = importlib.import_module("attn_core_inplace_cuda")
 
 
 class AngleResnetBlock(nn.Module):

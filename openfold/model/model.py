@@ -27,7 +27,7 @@ from openfold.model.embedders import (
 )
 from openfold.model.evoformer import EvoformerStack, ExtraMSAStack
 from openfold.model.heads import AuxiliaryHeads
-from openfold.model.structure_module import StructureModule
+from openfold.model.structure_module import StructureModule, attn_core_is_installed
 from openfold.model.template import (
     TemplatePairStack,
     TemplatePointwiseAttention,
@@ -409,7 +409,7 @@ class AlphaFold(nn.Module):
             outputs,
             feats["aatype"],
             mask=feats["seq_mask"].to(dtype=s.dtype),
-            inplace_safe=inplace_safe,
+            inplace_safe=inplace_safe and attn_core_is_installed,  # inplace requires attn_core
             _offload_inference=self.globals.offload_inference,
         )
         outputs["final_atom_positions"] = atom14_to_atom37(
