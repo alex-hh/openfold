@@ -19,7 +19,7 @@ import torch.nn as nn
 from typing import Tuple, Sequence, Optional
 from functools import partial
 
-from openfold.model.primitives import Linear, LayerNorm
+from openfold.model.primitives import Linear, LayerNorm, attn_core_is_installed
 from openfold.model.dropout import DropoutRowwise, DropoutColumnwise
 from openfold.model.msa import (
     MSARowAttentionWithPairBias,
@@ -517,7 +517,7 @@ class ExtraMSABlock(nn.Module):
                     mask=msa_mask, 
                     chunk_size=_attn_chunk_size,
                     use_lma=use_lma,
-                    use_memory_efficient_kernel=not use_lma,
+                    use_memory_efficient_kernel=attn_core_is_installed and not use_lma,
                     _checkpoint_chunks=
                         self.ckpt if torch.is_grad_enabled() else False,
                 )
