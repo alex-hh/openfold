@@ -1,1 +1,11 @@
 .ipynb_checkpoints
+.vscode/
+__pycache__/
+*.egg-info
+build
+dist
+
+# files from script downloads
+data
+openfold/resources/
+tests/test_data/
