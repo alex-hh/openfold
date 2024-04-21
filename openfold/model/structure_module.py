@@ -44,8 +44,10 @@ from openfold.utils.tensor_utils import (
     flatten_final_dims,
 )
 
-attn_core_inplace_cuda = importlib.import_module("attn_core_inplace_cuda")
-
+try:
+    attn_core_inplace_cuda = importlib.import_module("attn_core_inplace_cuda")
+except:
+    print("Warning: custom attention kernel not loaded")
 
 class AngleResnetBlock(nn.Module):
     def __init__(self, c_hidden):
