@@ -17,7 +17,10 @@ from operator import mul
 
 import torch
 
-attn_core_inplace_cuda = importlib.import_module("attn_core_inplace_cuda")
+try:
+    attn_core_inplace_cuda = importlib.import_module("attn_core_inplace_cuda")
+except:
+    print("Warning: Failed to load custom attention kernel.")
 
 
 SUPPORTED_DTYPES = [torch.float32, torch.bfloat16]
