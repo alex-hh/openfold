@@ -125,8 +125,8 @@ setup(
         "openfold": ['utils/kernel/csrc/*'],
         "": ["resources/stereo_chemical_props.txt"]
     },
-    ext_modules=modules,
-    cmdclass={'build_ext': BuildExtension},
+    # ext_modules=modules,
+    # cmdclass={'build_ext': BuildExtension},
     classifiers=[
         'License :: OSI Approved :: Apache Software License',
         'Operating System :: POSIX :: Linux',
